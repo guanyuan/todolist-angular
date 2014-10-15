@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html ng-app="MyApp">
+<head>
+    <title>Study 6</title>
+    <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+</head>
+<body>
+    <div ng-controller="testController">
+        <h1>{{model.newTitle}}</h1>
+        Name:<input type="text" ng-model="model.name" />
+        Fraction:<input type="text" ng-model="model.fraction" fraction-num />
+        Type:<select ng-model="model.type"><option value="1" selected>Radio</option><option value="2">CheckBox</option></select>
+        <input type="button" ng-click="add(model.fraction)" value="Add" />
+        <ul>
+            <li ng-repeat="item in model.options">
+                <b>{{$index+1}}</b>
+                <input type="text" ng-model="item.content" value="item.content" fraction-num />
+                <a href="javascript:void(0)" ng-click="del($index)">Delete</a>
+            </li>
+        </ul>
+        <hr />
+        <div>
+            <h1>{{model.previewTitle}}</h1>
+            <b>[{{model.type | typeFilter}}]{{model.name}}</b>({{model.fraction}})
+            <ul>
+                <li ng-repeat="item in model.options">
+                    <b>{{$index + 1}}</b>
+                    <input type="radio" name="optcheck" ng-show="model.type==1" />
+                    <input type="checkbox" ng-show="model.type==2" />
+                    {{item.content}}
+                </li>
+            </ul>
+        </div>
+        <hr />
+        {{nowTime | date : "yyyy-MM-dd HH:mm:ss"}}
+    </div>
+    <script type="text/javascript">
+        var app = angular.module("MyApp", [], function() { });
+        var myModel = {
+            newTitle: "Title",
+            previewTitle: "Preview Title",
+            name: "Robin",
+            fraction: "100",
+            type : 1,
+            options: []
+        };
+        app.controller("testController", function($scope) {
+            $scope.model = myModel;
+            $scope.add = function(text) {
+                var obj = { content: text };
+                $scope.model.options.push(obj);
+            };
+            $scope.del = function(index) {
+                $scope.model.options.splice(index, 1);
+            };
+            $scope.nowTime = new Date();
+        });
+        app.filter("typeFilter", function() {
+            var func = function(value) {
+                return value == 1 ? "Single Select" : "Multi Select";
+            };
+            return func;
+        });
+        app.directive("fractionNum", function() {
+            return {
+                link: function(scope, elements, attrs, controller) {
+                    elements[0].onkeyup = function() {
+                        if (/\D/.test(this.value)) {
+                            this.style.borderColor = 'red';
+                        }
+                        else {
+                            this.style.borderColor = '';
+                        }
+                    };
+                }
+            };
+        });
+    </script>
+</body>
+</html>

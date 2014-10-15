@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en" ng-app="blogApp">
+
+<head>
+    <meta charset="utf-8">
+    <title>To Do List Angular</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/partials/login.css">
+    <link rel="stylesheet" href="css/partials/welcome.css">
+    <link rel="stylesheet" href="css/partials/app_todoList.css">
+
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/services.js"></script>
+</head>
+
+<body>
+    <div class="hd">
+        <div class="logo">
+            <img src="http://static.cnblogs.com/images/logo_small.gif" alt="博客园Logo">
+        </div>
+        <ul class="nav-bar">
+            <li class="option"><a href="">园子</a>
+            </li>
+            <li class="option"><a href="">新闻</a>
+            </li>
+            <li class="option"><a href="">博问</a>
+            </li>
+            <li class="option"><a href="">小组</a>
+            </li>
+            <li class="option"><a href="">知识库</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="side-bar">
+        <ul class="category">
+            <li>Category</li>
+            <li><a href="">Java</a>
+            </li>
+            <li><a href="">Database</a>
+            </li>
+            <li><a href="">HTML</a>
+            </li>
+            <li><a href="">CSS</a>
+            </li>
+            <li><a href="">Javascript</a>
+            </li>
+            <li><a href="">Angular</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <div class="view-part" ng-view></div>
+    </div>
+
+
+
+</body>
+
+</html>
