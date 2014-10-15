@@ -3,14 +3,13 @@
 /* Controllers */
 
 
-blogApp.controller('loginCtrl', ['$scope', 'loginManage',
+blogApp.controller('loginCtrl', ['$scope', 'loginManage', 
     function($scope, loginManage) {
         $scope.username = "admin";
         $scope.password = "admin";
         $scope.verify = function() {
             if ($scope.user === $scope.username && $scope.password === $scope.code) {
                 loginManage.login();
-                location.href = "#/welcome";
             } else {
                 $scope.user = '';
                 $scope.code = '';
@@ -20,15 +19,18 @@ blogApp.controller('loginCtrl', ['$scope', 'loginManage',
     }
 ]);
 
-blogApp.controller('blogListCtrl', ['$scope', '$http', 'loginManage',
+blogApp.controller('blogListCtrl', ['$scope', '$http', 'loginManage', 
     function($scope, $http, loginManage) {
+        $scope.logout = function() {
+            loginManage.logout();
+        }
         if (loginManage.islogin) {
             $http.get("data/blogList.json").success(function(data) {
                 $scope.blogList = data;
             });
         }
         else {
-            location.href = "#/login"
+            $scope.logout();
         }
     }
 ]);

@@ -24,12 +24,14 @@ blogApp.service('taskStorageService', [
 ]);
 
 
-blogApp.service('loginManage', [function() {
+blogApp.service('loginManage', ['$location',function($location) {
     this.islogin = false;
     this.login = function() {
         this.islogin = true;
+        $location.path('/welcome');
     };
     this.logout = function() {
         this.islogin = false;
+        $location.path('/login');
     }
 }]);
