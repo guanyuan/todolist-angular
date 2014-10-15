@@ -12,15 +12,15 @@ blogApp.config(['$routeProvider',
         $routeProvider.
         when('/login', {
             controller: 'loginCtrl',
-            templateUrl: 'partials/login.html',
+            templateUrl: 'templates/partials/login.html',
         }).
         when('/welcome', {
             controller: 'blogListCtrl',
-            templateUrl: 'partials/welcome.html',
+            templateUrl: 'templates/partials/welcome.html',
         }).
         when('/todoList', {
             controller:'gtdCtrl',
-            templateUrl: 'partials/to_do_list.html',
+            templateUrl: 'templates/partials/to_do_list.html',
         }).
         otherwise({
             controller: 'loginCtrl',

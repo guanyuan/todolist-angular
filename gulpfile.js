@@ -3,19 +3,29 @@ var sass = require('gulp-sass');
 var serve = require('gulp-serve');
 var concat = require('gulp-concat');
 var cssbeautify = require('gulp-cssbeautify');
+var clean = require('gulp-clean');
+
+gulp.task('clean', function () {
+    return gulp.src('./src/assets/css', {read: false})
+        .pipe(clean());
+});
 
 gulp.task('sass', function () {
-    gulp.src('./app/sass/main.scss')
+    gulp.src('./src/sass/main.scss')
         .pipe(sass())
         .pipe(cssbeautify())
-        .pipe(gulp.dest('./app/css'));
+        .pipe(gulp.dest('./src/assets/css'));
+    gulp.src('./src/sass/partials/*.scss')
+        .pipe(sass())
+        .pipe(cssbeautify())
+        .pipe(gulp.dest('./src/assets/css/partials'));
 });
 
-gulp.task('serve', serve('app'));
+gulp.task('serve', serve('src'));
 
 gulp.task('watch', function() {
-  gulp.watch('./app/sass/*.scss', ['sass']);
+  gulp.watch('./src/sass/*.scss', ['sass']);
 });
 
 
-gulp.task('default',['serve', 'sass', 'watch']);
+gulp.task('default',['serve', 'clean','sass', 'watch']);

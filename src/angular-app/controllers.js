@@ -25,7 +25,7 @@ blogApp.controller('blogListCtrl', ['$scope', '$http', 'loginManage',
             loginManage.logout();
         }
         if (loginManage.islogin) {
-            $http.get("data/blogList.json").success(function(data) {
+            $http.get("/assets/data/blogList.json").success(function(data) {
                 $scope.blogList = data;
             });
         }

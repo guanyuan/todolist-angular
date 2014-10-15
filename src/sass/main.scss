@@ -8,7 +8,7 @@ body {
     .logo {
         border: 1px solid grey;
         border-radius: 12px;
-        background-image: url("/img/bg-11-full.jpg");
+        background-image: url("/assets/img/bg-11-full.jpg");
         img {
             border-top-left-radius: 12px;
         }
@@ -42,9 +42,9 @@ body {
     background-color: ghostwhite;
 }
 
-@import "./app/sass/partials/login.scss";
-@import "./app/sass/partials/welcome.scss";
-@import "./app/sass/partials/todolist.scss";
+@import "partials/login.scss";
+@import "partials/welcome.scss";
+@import "partials/todolist.scss";
 
 
 
