@@ -16,9 +16,20 @@ blogApp.service('taskStorageService', [
     function() {
         this.getTasks = function() {
             return localStorage.getArray("tasks") || new Array();
-        }
+        };
         this.setTasks = function(taskList) {
             localStorage.setArray("tasks", taskList);
-        }
+        };
     }
 ]);
+
+
+blogApp.service('loginManage', [function() {
+    this.islogin = false;
+    this.login = function() {
+        this.islogin = true;
+    };
+    this.logout = function() {
+        this.islogin = false;
+    }
+}]);

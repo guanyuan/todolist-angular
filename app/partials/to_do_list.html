@@ -5,7 +5,7 @@
         <input type="submit" value="Add">
     </form>
     <ul class="task-list">
-        <li ng-repeat="task in taskList track by $id($index)" class="task {{task.status}}">
+        <li ng-repeat="task in taskList track by $index" class="task {{task.status}}">
             <div class="check-button" ng-click="check($index)">√</div>
             <div class="description">{{task.description}}</div>
             <div class="delete-button" ng-click="delete($index)">×</div>

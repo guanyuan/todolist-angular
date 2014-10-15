@@ -5,6 +5,7 @@
 var blogApp = angular.module('blogApp', [
     'ngRoute'
 ]);
+var islogin = false;
 
 blogApp.config(['$routeProvider',
     function($routeProvider) {

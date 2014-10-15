@@ -3,12 +3,13 @@
 /* Controllers */
 
 
-blogApp.controller('loginCtrl', ['$scope',
-    function($scope) {
+blogApp.controller('loginCtrl', ['$scope', 'loginManage',
+    function($scope, loginManage) {
         $scope.username = "admin";
         $scope.password = "admin";
         $scope.verify = function() {
             if ($scope.user === $scope.username && $scope.password === $scope.code) {
+                loginManage.login();
                 location.href = "#/welcome";
             } else {
                 $scope.user = '';
@@ -19,15 +20,20 @@ blogApp.controller('loginCtrl', ['$scope',
     }
 ]);
 
-blogApp.controller('blogListCtrl', ['$scope', '$http',
-    function($scope, $http) {
-        $http.get("data/blogList.json").success(function(data) {
-            $scope.blogList = data;
-        });
+blogApp.controller('blogListCtrl', ['$scope', '$http', 'loginManage',
+    function($scope, $http, loginManage) {
+        if (loginManage.islogin) {
+            $http.get("data/blogList.json").success(function(data) {
+                $scope.blogList = data;
+            });
+        }
+        else {
+            location.href = "#/login"
+        }
     }
 ]);
 
-blogApp.controller('gtdCtrl', ['$scope','taskStorageService',
+blogApp.controller('gtdCtrl', ['$scope', 'taskStorageService',
     function($scope, taskStorageService) {
         $scope.taskList = taskStorageService.getTasks();
         $scope.add = function() {
@@ -41,11 +47,11 @@ blogApp.controller('gtdCtrl', ['$scope','taskStorageService',
 
         $scope.delete = function(index) {
             $scope.taskList.splice(index, 1);
-          	taskStorageService.setTasks($scope.taskList);  
+            taskStorageService.setTasks($scope.taskList);
         };
         $scope.check = function(index) {
             $scope.taskList[index].status = "completed";
-          	taskStorageService.setTasks($scope.taskList);    
+            taskStorageService.setTasks($scope.taskList);
         };
 
     }
