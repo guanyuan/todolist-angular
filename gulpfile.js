@@ -11,20 +11,16 @@ gulp.task('clean', function () {
 });
 
 gulp.task('sass', function () {
-    gulp.src('./src/sass/main.scss')
+    gulp.src('./src/sass/**/*.scss',{base: './src/sass'})
         .pipe(sass())
         .pipe(cssbeautify())
         .pipe(gulp.dest('./src/assets/css'));
-    gulp.src('./src/sass/partials/*.scss')
-        .pipe(sass())
-        .pipe(cssbeautify())
-        .pipe(gulp.dest('./src/assets/css/partials'));
 });
 
 gulp.task('serve', serve('src'));
 
 gulp.task('watch', function() {
-  gulp.watch('./src/sass/*.scss', ['sass']);
+  gulp.watch('./src/sass/**/*.scss', ['sass']);
 });
 
 
