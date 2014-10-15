@@ -1,0 +1,18 @@
+.welcome-page {
+    .blog-list {
+        list-style: none;
+        .blog-item {
+            margin-bottom: 20px;
+            .title {
+                font-weight: bold;
+                a {
+                    text-decoration: none;
+                }
+            }
+            .time {
+                font-style: italic;
+                color: grey;
+            }
+        }
+    }
+}
