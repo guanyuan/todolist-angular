@@ -1,12 +1,5 @@
-Suppose you have installed node.js and you have npm tool.
 
-You can run 
-        npm start to start the server.
+You can run in command line:
+gulp
 
-
-You can navigate to 
-http://localhost:8000/app/#/login 
-http://localhost:8000/app/#/welcome
-http://localhost:8000/app/#/todoList
- 
-to see the results of this app.
+Then glup will run the default tasks including: start the server, compile scss file.
