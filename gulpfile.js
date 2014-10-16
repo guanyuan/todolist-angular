@@ -6,6 +6,7 @@ var uglify = require('gulp-uglify');
 var cssbeautify = require('gulp-cssbeautify');
 var clean = require('gulp-clean');
 var livereload = require('gulp-livereload');
+var rename = require('gulp-rename');
 
 
 gulp.task('clean-css', function () {
@@ -14,12 +15,12 @@ gulp.task('clean-css', function () {
 });
 
 gulp.task('clean-js', function () {
-    gulp.src('./src/dist/**/*.js', {read: false})
+    gulp.src('./dist/**/*.js', {read: false})
         .pipe(clean());
 });
 
 gulp.task('clean-html', function () {
-    gulp.src('./src/dist/**/*.html', {read: false})
+    gulp.src('./dist/**/*.html', {read: false})
         .pipe(clean());
 });
 
@@ -35,6 +36,7 @@ gulp.task('sass', ['clean-css'], function () {
 gulp.task('angularScript', ['clean-js'], function() {
     gulp.src('src/angular-app/**/*.js', {base: './src/angular-app'})
         .pipe(concat("all.js"))
+        .pipe(rename({suffix: ".min"}))
         .pipe(uglify())
         .pipe(gulp.dest('dist'))
         .pipe(livereload()); 
