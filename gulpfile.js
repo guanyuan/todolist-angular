@@ -9,23 +9,31 @@ var livereload = require('gulp-livereload');
 var rename = require('gulp-rename');
 
 
-gulp.task('clean-css', function () {
-    gulp.src('./src/assets/css', {read: false})
+gulp.task('clean-css', function() {
+    gulp.src('./src/assets/css', {
+            read: false
+        })
         .pipe(clean());
 });
 
-gulp.task('clean-js', function () {
-    gulp.src('./dist/**/*.js', {read: false})
+gulp.task('clean-js', function() {
+    gulp.src('./dist/**/*.js', {
+            read: false
+        })
         .pipe(clean());
 });
 
-gulp.task('clean-html', function () {
-    gulp.src('./dist/**/*.html', {read: false})
+gulp.task('clean-html', function() {
+    gulp.src('./dist/**/*.html', {
+            read: false
+        })
         .pipe(clean());
 });
 
-gulp.task('sass', ['clean-css'], function () {
-    gulp.src('./src/sass/**/*.scss',{base: './src/sass'})
+gulp.task('sass', ['clean-css'], function() {
+    gulp.src('./src/sass/**/*.scss', {
+            base: './src/sass'
+        })
         .pipe(sass())
         .pipe(cssbeautify())
         .pipe(gulp.dest('./src/assets/css'))
@@ -34,29 +42,35 @@ gulp.task('sass', ['clean-css'], function () {
 
 
 gulp.task('angularScript', ['clean-js'], function() {
-    gulp.src('src/angular-app/**/*.js', {base: './src/angular-app'})
+    gulp.src('src/angular-app/**/*.js', {
+            base: './src/angular-app'
+        })
         .pipe(concat("all.js"))
-        .pipe(rename({suffix: ".min"}))
+        .pipe(rename({
+            suffix: ".min"
+        }))
         .pipe(uglify())
         .pipe(gulp.dest('dist'))
-        .pipe(livereload()); 
+        .pipe(livereload());
 });
 
 gulp.task('html', ['clean-html'], function() {
-    gulp.src('src/templates/**/*.html', {base: './src/templates'})
+    gulp.src('src/templates/**/*.html', {
+            base: './src/templates'
+        })
         .pipe(gulp.dest('dist'))
-        .pipe(livereload()); 
+        .pipe(livereload());
 });
 
 
 // Watch Task
 gulp.task('watch', function() {
-  gulp.watch('./src/sass/**/*.scss', ['sass']);
-  gulp.watch('./src/angular-app/**/*.js', ['angularScript']);
-  gulp.watch('./src/templates/**/*.html', ['html']);
+    gulp.watch('./src/sass/**/*.scss', ['sass']);
+    gulp.watch('./src/angular-app/**/*.js', ['angularScript']);
+    gulp.watch('./src/templates/**/*.html', ['html']);
 });
 
 
 gulp.task('serve', serve('src'));
 
-gulp.task('default',['sass', 'angularScript', 'html' ,'watch', 'serve']);
+gulp.task('default', ['sass', 'angularScript', 'html', 'watch', 'serve']);

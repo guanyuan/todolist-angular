@@ -15,7 +15,7 @@ blogApp.controller('loginCtrl', ['$scope', 'loginManage',
                 $scope.code = '';
                 alert("Please try again.");
             }
-        }
+        };
     }
 ]);
 
@@ -23,7 +23,7 @@ blogApp.controller('blogListCtrl', ['$scope', '$http', 'loginManage',
     function($scope, $http, loginManage) {
         $scope.logout = function() {
             loginManage.logout();
-        }
+        };
         if (loginManage.islogin) {
             $http.get("/assets/data/blogList.json").success(function(data) {
                 $scope.blogList = data;
