@@ -3,28 +3,35 @@
 /* App Module */
 
 var blogApp = angular.module('blogApp', [
-    'ngRoute'
+    'ui.router'
 ]);
-var islogin = false;
 
-blogApp.config(['$routeProvider',
-    function($routeProvider) {
-        $routeProvider.
-        when('/login', {
+
+blogApp.config(function($stateProvider, $urlRouterProvider) {
+    //
+    // For any unmatched url, redirect to /state1
+    $urlRouterProvider.otherwise("/login");
+    //
+    // Now set up the states
+    $stateProvider
+        .state('login', {
+            url: "/login",
             controller: 'loginCtrl',
             templateUrl: 'templates/partials/login.html',
-        }).
-        when('/welcome', {
+        })
+        .state('welcome', {
+            url: "/welcome",
             controller: 'blogListCtrl',
             templateUrl: 'templates/partials/welcome.html',
-        }).
-        when('/todoList', {
-            controller:'gtdCtrl',
+        })
+        .state('todolist', {
+            url: "/todolist",
+            controller: 'gtdCtrl',
             templateUrl: 'templates/partials/to_do_list.html',
-        }).
-        otherwise({
-            controller: 'loginCtrl',
-            redirectTo: '/login'
+        })
+        .state('welcome.todolist', {
+            url: "/todolist",
+            controller: 'gtdCtrl',
+            templateUrl: 'templates/partials/to_do_list.html',
         });
-    }
-]);
+});

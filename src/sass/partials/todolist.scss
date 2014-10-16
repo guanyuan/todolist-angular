@@ -23,14 +23,14 @@
         .description {
             width: 78%;
         }
-    }
-    &.completed {
-        .check-button {
-            color: grey;
-        }
-        .description {
-            color: grey;
-            text-decoration: line-through;
+        &.completed {
+            .check-button {
+                color: grey;
+            }
+            .description {
+                color: grey;
+                text-decoration: line-through;
+            }
         }
     }
 }
