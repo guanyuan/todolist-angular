@@ -8,24 +8,28 @@ var clean = require('gulp-clean');
 var livereload = require('gulp-livereload');
 var rename = require('gulp-rename');
 
+var cssPath = './src/assets/css';
+var jsPath = './dist/**/*.js';
+var htmlPath = './dist/**/*.html';
 
 gulp.task('clean-css', function() {
-    gulp.src('./src/assets/css', {
-            read: false
+    gulp.src(cssPath, {
+            read: false,
         })
         .pipe(clean());
 });
 
 gulp.task('clean-js', function() {
-    gulp.src('./dist/**/*.js', {
+    gulp.src(jsPath, {
             read: false
         })
         .pipe(clean());
 });
 
 gulp.task('clean-html', function() {
-    gulp.src('./dist/**/*.html', {
-            read: false
+    gulp.src(htmlPath, {
+            read: false,
+            base: './dist'
         })
         .pipe(clean());
 });
