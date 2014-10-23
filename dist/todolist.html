@@ -1,14 +1,25 @@
-<div class="gtd-app">
-    <h2>To do List</h2>
-    <form action="" ng-submit="add()">
-        <input type="text" placeHolder="Add New Item..." ng-model="newTask">
-        <input type="submit" value="Add">
-    </form>
-    <ul class="task-list">
-        <li ng-repeat="task in taskList track by $index" class="task {{task.status}}">
-            <div class="check-button" ng-click="check($index)">√</div>
-            <div class="description">{{task.description}}</div>
-            <div class="delete-button" ng-click="delete($index)">×</div>
-        </li>
-    </ul>
+<div class="todolist-app">
+    <div class="todolist-title">
+        <div class="icon">
+            <img id="refresh" src="/assets/img/icons/refresh22.png">
+        </div>
+        <h1>To do List</h1>
+        <div class="icon">
+            <img id="email" src="/assets/img/icons/email29.png">
+        </div>
+    </div>
+
+    <div class="todolist-content">
+        <form action="" ng-submit="add()">
+            <input class="task-input" type="text" placeHolder="Add New Item..." ng-model="newTask">
+            <input type="submit" value="Add">
+        </form>
+        <ul class="task-list">
+            <li ng-repeat="task in taskList track by $index" class="task {{task.status}}">
+                <div class="check-button" ng-click="check($index)">√</div>
+                <div class="description">{{task.description}}</div>
+                <div class="delete-button" ng-click="delete($index)">×</div>
+            </li>
+        </ul>
+    </div>
 </div>
