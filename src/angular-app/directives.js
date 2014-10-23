@@ -6,7 +6,7 @@ blogApp.directive('draggableVertical', function() {
     var linkFn;
     linkFn = function(scope, element, attrs) {
         var drag, box;
-        $(element).draggable({axis: "y"});
+        $(element).draggable({axis: "y", containment: ".left-side", scroll: false});
     };
     return {
     	restrict: 'ACE',
@@ -19,7 +19,7 @@ blogApp.directive('draggableHorizon', function() {
     var linkFn;
     linkFn = function(scope, element, attrs) {
         var drag, box;
-        $(element).draggable({axis: "x"});
+        $(element).draggable({axis: "x", containment: ".right-side", scroll: false});
     };
     return {
         restrict: 'ACE',
@@ -27,31 +27,13 @@ blogApp.directive('draggableHorizon', function() {
     };
 });
 
-
-blogApp.directive('myWidget', function() {
+blogApp.directive('sortableList', function() {
     var linkFn;
     linkFn = function(scope, element, attrs) {
-        var animateDown, animateRight, pageOne, pageTwo;
-        pageOne = angular.element(element.children()[0]);
-        pageTwo = angular.element(element.children()[1]);
-
-        animateDown = function() {
-            $(this).animate({
-                top: '+=50'
-            });
-        };
-
-        animateRight = function() {
-            $(this).animate({
-                left: '+=50'
-            });
-        };
-
-        $(pageOne).on('click', animateDown);
-        $(pageTwo).on('click', animateRight);
+        $(element).sortable();
     };
     return {
-        restrict: 'E',
+        restrict: 'ACE',
         link: linkFn
     };
 });
