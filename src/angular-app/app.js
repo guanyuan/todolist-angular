@@ -21,24 +21,24 @@ blogApp.config(function($stateProvider, $urlRouterProvider) {
         .state('blog.login', {
             url: "/login",
             controller: 'loginCtrl',
-            templateUrl: 'templates/partials/login.html',
+            templateUrl: 'templates/partials/blog/login.html',
         })
         .state('blog.welcome', {
             url: "/welcome",
             controller: 'blogListCtrl',
-            templateUrl: 'templates/partials/welcome.html',
+            templateUrl: 'templates/partials/blog/welcome.html',
         })
         .state('todolist', {
             url: "/todolist",
             controller: 'gtdCtrl',
-            templateUrl: 'templates/partials/to_do_list.html',
+            templateUrl: 'templates/todolist.html',
         })
         .state('blog.login.multiple', {
             url: "/todolist",
             views: {
                 "todolist": {
                     controller: 'gtdCtrl',
-                    templateUrl: 'templates/partials/to_do_list.html',
+                    templateUrl: 'templates/todolist.html',
                 }
             }
         });
