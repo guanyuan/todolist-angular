@@ -1,7 +1,27 @@
 .demo-ng-directive {
 	.box {
+		margin: {
+			top: 20px;
+			bottom: 10px;
+		}
+		width: 200px;
 		height: 200px;
+		margin: {
+			left: auto;
+			right: auto;
+		}
 		background-color: gainsboro;
 		border-bottom: 1px solid grey;
+	}
+	.left-side {
+		.box {
+			cursor: n-resize;
+		}
+	}
+
+	.right-side {
+		.box {
+			cursor: e-resize;
+		}
 	}
 }

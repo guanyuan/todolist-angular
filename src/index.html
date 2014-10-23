@@ -4,20 +4,45 @@
 <head>
     <meta charset="utf-8">
     <title>To Do List Angular</title>
-    <link rel="stylesheet" href="assets/css/main.css">
-    <script src="http://localhost:35729/livereload.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
 
-    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
-    <script src="angular-app/app.js"></script>
-    <script src="angular-app/controllers.js"></script>
-    <script src="angular-app/services.js"></script>
+    <link rel="stylesheet" href="bower_components/jquery-ui/themes/smoothness/jquery-ui.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+
+    <script src="http://localhost:35729/livereload.js"></script>
+
+    <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script type="text/javascript" src="bower_components/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+
+    <script type="text/javascript" src="angular-app/app.js"></script>
+    <script type="text/javascript" src="angular-app/controllers.js"></script>
+    <script type="text/javascript" src="angular-app/services.js"></script>
 </head>
 
 <body>
     <div ui-view></div>
 
+    <div class="demo-ng-directive">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="left-side col-xs-6">
+                    <div class="box"></div>
+                    <div class="box"></div>
+                    <div class="box"></div>
+                </div>
+                <div class="right-side col-xs-6">
+                    <div class="box"></div>
+                    <div class="box"></div>
+                    <div class="box"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+
+
+<script type="text/javascript" src="assets/js/partials/exercise.js"></script>
 
 </html>
