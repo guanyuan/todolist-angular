@@ -5,27 +5,15 @@
 blogApp.directive('draggableVertical', function() {
     var linkFn;
     linkFn = function(scope, element, attrs) {
-        var drag, box;
-        $(element).draggable({axis: "y", containment: ".left-side", scroll: false});
+        var items = $(element).children();
+        $(items).draggable({axis: "y", containment: ".drag-up-down", scroll: false});
     };
     return {
-    	restrict: 'ACE',
+    	restrict: 'A',
     	link: linkFn
     };
 });
 
-
-blogApp.directive('draggableHorizon', function() {
-    var linkFn;
-    linkFn = function(scope, element, attrs) {
-        var drag, box;
-        $(element).draggable({axis: "x", containment: ".right-side", scroll: false});
-    };
-    return {
-        restrict: 'ACE',
-        link: linkFn
-    };
-});
 
 blogApp.directive('sortableList', function() {
     var linkFn;
@@ -33,7 +21,22 @@ blogApp.directive('sortableList', function() {
         $(element).sortable();
     };
     return {
-        restrict: 'ACE',
+        restrict: 'C',
         link: linkFn
     };
 });
+
+
+blogApp.directive('draggableHorizon', function() {
+    var linkFn;
+    linkFn = function(scope, element, attrs) {
+        var boxes = angular.element(element.children());
+        $(boxes).draggable({axis: "x", containment: ".drag-left-right", scroll: false});
+    };
+    return {
+        restrict: 'E',
+        link: linkFn
+    };
+});
+
+
