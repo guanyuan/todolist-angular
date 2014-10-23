@@ -1,17 +1,42 @@
 <div class="demo-ng-directive">
-	<div class="container-fluid">
-	
-		<div class="row">
-			<div class="left-side col-xs-6">
-				<div class="box" id="first"></div>
-				<div class="box"></div>
-				<div class="box"></div>
-			</div>
-			<div class="right-side col-xs-6">
-				<div class="box"></div>
-				<div class="box"></div>
-				<div class="box"></div>
-			</div>
-		</div>
-	</div>
+
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="left-side col-xs-6">
+                <div class="box" draggable-vertical></div>
+                <div class="box" draggable-vertical></div>
+                <div class="box" draggable-vertical></div>
+            </div>
+            
+            <div class="right-side col-xs-6">
+				<div class="box" draggable-horizon></div>
+				<div class="box" draggable-horizon></div>
+				<div class="box" draggable-horizon></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<style>
+.box1 {
+    position: relative;
+    background-color: #abc;
+    width: 40px;
+    height: 40px;
+    float: left;
+    margin: 5px;
+    cursor: pointer
+}
+</style>
+
+<!-- <my-widget>
+    <div id="one" class="box1"></div>  
+</my-widget> -->
+
+
+<div>
+    <div id="one" class="box1"></div>
 </div>
