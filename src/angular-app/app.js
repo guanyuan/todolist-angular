@@ -28,19 +28,22 @@ blogApp.config(function($stateProvider, $urlRouterProvider) {
             controller: 'blogListCtrl',
             templateUrl: 'templates/partials/blog/welcome.html',
         })
+
+    .state('blog.login.multiple', {
+        url: "/todolist",
+        views: {
+            "todolist": {
+                controller: 'gtdCtrl',
+                templateUrl: 'templates/todolist.html',
+            }
+        }
+    });
+
+    $stateProvider
         .state('todolist', {
             url: "/todolist",
             controller: 'gtdCtrl',
             templateUrl: 'templates/todolist.html',
-        })
-        .state('blog.login.multiple', {
-            url: "/todolist",
-            views: {
-                "todolist": {
-                    controller: 'gtdCtrl',
-                    templateUrl: 'templates/todolist.html',
-                }
-            }
         });
 
     $stateProvider
