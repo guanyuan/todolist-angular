@@ -42,4 +42,10 @@ blogApp.config(function($stateProvider, $urlRouterProvider) {
                 }
             }
         });
+
+    $stateProvider
+        .state('exercise', {
+            url: "/exercise",
+            templateUrl: 'templates/exercise.html'
+        });
 });
