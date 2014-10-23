@@ -44,7 +44,13 @@ body {
 
 
 @import "../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap.scss";
+//blog
 @import "partials/blog.scss";
+
+//todolist
 @import "partials/todolist.scss";
+
+//exercise
+@import "partials/exercise.scss";
 
 
