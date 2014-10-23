@@ -1,0 +1,14 @@
+<div class="gtd-app">
+    <h2>To do List</h2>
+    <form action="" ng-submit="add()">
+        <input type="text" placeHolder="Add New Item..." ng-model="newTask">
+        <input type="submit" value="Add">
+    </form>
+    <ul class="task-list">
+        <li ng-repeat="task in taskList track by $index" class="task {{task.status}}">
+            <div class="check-button" ng-click="check($index)">√</div>
+            <div class="description">{{task.description}}</div>
+            <div class="delete-button" ng-click="delete($index)">×</div>
+        </li>
+    </ul>
+</div>

@@ -10,16 +10,20 @@ var blogApp = angular.module('blogApp', [
 blogApp.config(function($stateProvider, $urlRouterProvider) {
     //
     // For any unmatched url, redirect to /state1
-    $urlRouterProvider.otherwise("/login");
+    $urlRouterProvider.otherwise("/");
     //
     // Now set up the states
     $stateProvider
-        .state('login', {
+        .state('blog', {
+            url: "/blog",
+            templateUrl: 'templates/blog.html',
+        })
+        .state('blog.login', {
             url: "/login",
             controller: 'loginCtrl',
             templateUrl: 'templates/partials/login.html',
         })
-        .state('welcome', {
+        .state('blog.welcome', {
             url: "/welcome",
             controller: 'blogListCtrl',
             templateUrl: 'templates/partials/welcome.html',
@@ -29,8 +33,8 @@ blogApp.config(function($stateProvider, $urlRouterProvider) {
             controller: 'gtdCtrl',
             templateUrl: 'templates/partials/to_do_list.html',
         })
-        .state('login.multiple', {
-            url: "/multiple",
+        .state('blog.login.multiple', {
+            url: "/todolist",
             views: {
                 "todolist": {
                     controller: 'gtdCtrl',

@@ -13,11 +13,17 @@ var jsPath = './dist/**/*.js';
 var htmlPath = './dist/**/*.html';
 
 gulp.task('clean-css', function() {
+    gulp.src(cssPath + "/**/*.css", {
+            read: false,
+        })
+        .pipe(clean());
+
     gulp.src(cssPath, {
             read: false,
         })
         .pipe(clean());
 });
+
 
 gulp.task('clean-js', function() {
     gulp.src(jsPath, {
