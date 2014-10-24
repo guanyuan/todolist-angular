@@ -47,8 +47,8 @@ blogApp.config(function($stateProvider, $urlRouterProvider) {
         });
 
     $stateProvider
-        .state('exercise', {
-            url: "/exercise",
-            templateUrl: 'templates/exercise.html'
+        .state('demo-angular-directive-jquery-ui-draggable', {
+            url: "/demo-angular-directive-jquery-ui-draggable",
+            templateUrl: 'templates/demo-angular-directive-jquery-ui-draggable.html'
         });
 });
