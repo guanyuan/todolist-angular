@@ -51,4 +51,10 @@ blogApp.config(function($stateProvider, $urlRouterProvider) {
             url: "/demo-angular-directive-jquery-ui-draggable",
             templateUrl: 'templates/demo-angular-directive-jquery-ui-draggable.html'
         });
+
+    $stateProvider
+        .state('mine-sweeper', {
+            url: "/mine-sweeper",
+            templateUrl: 'templates/mine-sweeper.html'
+        });
 });
