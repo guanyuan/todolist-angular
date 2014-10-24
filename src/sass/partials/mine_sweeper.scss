@@ -1,0 +1,35 @@
+
+.mine-sweeper {
+    margin: {
+        top: 50px;
+        left: auto;
+        right: auto;
+    }
+    min-height: 100px;
+    width: 500px;
+    background-color: lighten(grey, 40);
+    .mine-layer {
+        .box {
+            padding: {
+                top: 20px;
+            }
+            height: 167px;
+            background-color: #a8c3a1;
+            cursor: pointer;
+            box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.3);
+        }
+    }
+}
+
+.bomb {
+    background-image: url("/assets/img/icons/bomb.png");
+    background-repeat: no-repeat;
+    background-position: 15px 30px;
+}
+
+// 浅蓝色：afdfe0
+// 浅黄色：d9e295
+// 深绿色：285f6d
+// 深黄色：e6d460
+// 深橘色：e2793a
+
