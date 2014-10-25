@@ -38,8 +38,7 @@ $(function() {
             alert("Game over!");
             location.reload();
 
-        } else {
-        }
+        } else {}
     });
 });
 
@@ -83,73 +82,63 @@ function getMineDistr(row, col, bombLocations) {
         bombArray2[m][n] = 1;
     }
 
-
-    //The top-left-corner
-    var i = 0,
-        j = 0;
-    if (bombArray2[i][j] !== 1) {
-        surroundArray2[i][j] = bombArray2[i][j + 1] + bombArray2[i + 1][j] + bombArray2[i + 1][j + 1];
+for(var i=0; i<row; i++) {
+    for(var j=0; j< col; j++) {
+        surroundArray2[i][j] = getCurrentSurroundBombNum(row, col, i, j, bombArray2);
     }
-
-    //The top-right-corner
-    i = 0, j = col - 1;
-    if (bombArray2[i][j] !== 1) {
-        surroundArray2[i][j] = bombArray2[i][j - 1] + bombArray2[i + 1][j] + bombArray2[i + 1][j - 1];
-    }
-
-    //The bottom-left-corner
-    i = row - 1, j = 0;
-    if (bombArray2[i][j] !== 1) {
-        surroundArray2[i][j] = bombArray2[i][j + 1] + bombArray2[i - 1][j + 1] + bombArray2[i - 1][j];
-    }
-
-    //The bottom-left-corner
-    i = row - 1, j = col - 1;
-    if (bombArray2[i][j] !== 1) {
-        surroundArray2[i][j] = bombArray2[i][j - 1] + bombArray2[i - 1][j - 1] + bombArray2[i - 1][j];
-    }
-
-
-    //the first row
-    i = 0;
-    for (j = 1; j < col - 1; j++) {
-        if (bombArray2[i][j] !== 1) {
-            surroundArray2[i][j] = bombArray2[i][j + 1] + bombArray2[i + 1][j] + bombArray2[i][j - 1] + bombArray2[i + 1][j - 1] + bombArray2[i + 1][j + 1];
-        }
-    }
-
-    //the last row
-    i = row - 1;
-    for (j = 1; j < col - 1; j++) {
-        if (bombArray2[i][j] !== 1) {
-            surroundArray2[i][j] = bombArray2[i - 1][j] + bombArray2[i][j - 1] + bombArray2[i - 1][j - 1] + bombArray2[i - 1][j + 1] + bombArray2[i][j + 1];
-        }
-    }
-
-    //the left side
-    j = 0;
-    for (i = 1; i < row - 1; i++) {
-        if (bombArray2[i][j] !== 1) {
-            surroundArray2[i][j] = bombArray2[i - 1][j] + bombArray2[i - 1][j + 1] + bombArray2[i][j + 1] + bombArray2[i + 1][j] + bombArray2[i + 1][j + 1];
-        }
-    }
-
-    //the right side
-    j = col - 1;
-    for (i = 1; i < row - 1; i++) {
-        if (bombArray2[i][j] !== 1) {
-            surroundArray2[i][j] = bombArray2[i][j - 1] + bombArray2[i + 1][j - 1] + bombArray2[i - 1][j - 1] + bombArray2[i - 1][j] + bombArray2[i + 1][j];
-        }
-    }
-    //general case
-    for (i = 1; i < row - 1; i++) {
-        for (j = 1; j < col - 1; j++) {
-            if (bombArray2[i][j] !== 1) {
-                surroundArray2[i][j] = bombArray2[i][j - 1] + bombArray2[i + 1][j - 1] + bombArray2[i - 1][j - 1] + bombArray2[i - 1][j] + bombArray2[i + 1][j] + bombArray2[i + 1][j + 1] + bombArray2[i - 1][j + 1] + bombArray2[i][j + 1];
-            }
-        }
-    }
+}
 
     return surroundArray2;
 }
+
+
+function getCurrentSurroundBombNum(row, col, i, j, bombArray2) {
+    var bombNum = 0;
+    var arrayI = [i, i, i+1, i+1, i+1, i-1, i-1, i-1];
+    var arrayJ = [j-1, j+1, j-1, j, j+1, j-1, j, j+1];
+    for(var k=0; k<arrayI.length; k++) {
+        if(isValidPosition(row, col, arrayI[k], arrayJ[k])) {
+            bombNum += bombArray2[arrayI[k]][arrayJ[k]];
+        }
+    }
+    return bombNum;
+}
+
+function getCurrentSurroundIndex(row, col, i, j) {
+    var indexArray = [], index;
+    var arrayI = [i, i, i+1, i+1, i+1, i-1, i-1, i-1];
+    var arrayJ = [j-1, j+1, j-1, j, j+1, j-1, j, j+1];
+    for(var k=0; k<arrayI.length; k++) {
+        if(isValidPosition(row, col, arrayI[k], arrayJ[k])) {
+            index = arrayI[k] * col + arrayJ[k];
+            indexArray.push(index);
+        }
+    }
+    return indexArray;
+}
+
+
+function isValidPosition(row, col, i, j) {
+    if(i>=0 && i<row && j>=0 && j<row) {
+        return true;
+    }
+    return false;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
