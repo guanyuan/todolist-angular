@@ -2,6 +2,7 @@ $(function() {
     var row = 3;
     var col = 3;
     var count = 2;
+    var delay = 500;
     var mineDistr = [],
         mineDistr2;
 
@@ -33,7 +34,9 @@ $(function() {
         if ($.inArray(boxPos, bombLocations) != -1) {
             $(".box button").hide();
             $(".box div").show();
-            alert("Game over!");
+            setTimeout(function() {
+                alert("Do not be sad, you can do better next time.");
+            }, delay);
         } else {
             var i = Math.floor(boxPos / col);
             var j = boxPos % col;
@@ -42,8 +45,11 @@ $(function() {
                 $(".box:nth-child(" + (v + 1) + ") button").hide();
                 $(".box:nth-child(" + (v + 1) + ") div").show();
             });
-            if($(".box div:hidden").parent().size() === count) {
-                alert("You win");
+            if ($(".box div:hidden").parent().size() === count) {
+                setTimeout(function() {
+                    alert("Congratulations, you win!");
+                }, delay);
+
             }
         }
 
