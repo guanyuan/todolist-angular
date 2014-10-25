@@ -1,21 +1,13 @@
 $(function() {
 
-
-    var row = 4;
-    var col = 4;
+    var dim = 4;
     var count = 3;
     var delay = 500;
 
-    var boxHtmlCode = '<div class="box col-xs-' + (12 / row) + '">' + 
-                        '<button class = "door" > </button>' +  
-                        '<div> </div> ' + 
-                    '</div>';
-    for (var i = 0; i < row * row; i++) {
-        $(".mine-layer").append(boxHtmlCode);
-    }
 
-    var bombLocations = generateBombLocation(row, col, count);
-    var mineDistArray = getMineDistr(row, col, bombLocations);
+    generateBoxHtml($(".mine-layer"), dim);
+    var bombLocations = generateBombLocation(dim, dim, count);
+    var mineDistArray = getMineDistr(dim, dim, bombLocations);
     console.log("Bombs located at: " + bombLocations + '(location begins from 0)');
 
     //布雷及生成格子周边雷数
@@ -41,7 +33,7 @@ $(function() {
             }, delay);
         } else {
 
-            var indexes = getCurrentSurroundIndex(row, col, boxPos, bombLocations);
+            var indexes = getCurrentSurroundIndex(dim, dim, boxPos, bombLocations);
             $.each(indexes, function(k, v) {
                 $(".box:nth-child(" + (v + 1) + ") button").hide();
                 $(".box:nth-child(" + (v + 1) + ") div").show();
@@ -59,9 +51,9 @@ $(function() {
 
 
 
-function generateBombLocation(row, col, count) {
+function generateBombLocation(dim, dim, count) {
     var array = [];
-    for (var i = 0; i < row * col; i++) {
+    for (var i = 0; i < dim * dim; i++) {
         array[i] = i;
     }
     array.sort(randomSort);
@@ -76,50 +68,50 @@ function randomSort() {
 
 
 
-function getMineDistr(row, col, bombLocations) {
+function getMineDistr(dim, dim, bombLocations) {
     var m, n, index;
     //初始化为0
-    var mine01Matrix = createMatrix(row, col, 0);
+    var mine01Matrix = createMatrix(dim, dim, 0);
     var mineDistArray = [];
 
     //有雷的位置,mine01Matrix设为1
     for (var i = 0; i < bombLocations.length; i++) {
-        m = Math.floor(bombLocations[i] / col);
-        n = bombLocations[i] % col;
+        m = Math.floor(bombLocations[i] / dim);
+        n = bombLocations[i] % dim;
         mine01Matrix[m][n] = 1;
     }
-    for (var i = 0; i < row; i++) {
-        for (var j = 0; j < col; j++) {
-            index = i * col + j;
-            mineDistArray[index] = getCurrentSurroundBombNum(row, col, i, j, mine01Matrix);
+    for (var i = 0; i < dim; i++) {
+        for (var j = 0; j < dim; j++) {
+            index = i * dim + j;
+            mineDistArray[index] = getCurrentSurroundBombNum(dim, dim, i, j, mine01Matrix);
         }
     }
     return mineDistArray;
 }
 
 
-function getCurrentSurroundBombNum(row, col, i, j, mine01Matrix) {
+function getCurrentSurroundBombNum(dim, dim, i, j, mine01Matrix) {
     var bombNum = 0;
     var arrayI = [i, i, i, i + 1, i + 1, i + 1, i - 1, i - 1, i - 1];
     var arrayJ = [j, j - 1, j + 1, j - 1, j, j + 1, j - 1, j, j + 1];
     for (var k = 0; k < arrayI.length; k++) {
-        if (isValidPosition(row, col, arrayI[k], arrayJ[k])) {
+        if (isValidPosition(dim, dim, arrayI[k], arrayJ[k])) {
             bombNum += mine01Matrix[arrayI[k]][arrayJ[k]];
         }
     }
     return bombNum;
 }
 
-function getCurrentSurroundIndex(row, col, boxPos, bombLocations) {
-    var i = Math.floor(boxPos / col);
-    var j = boxPos % col;
+function getCurrentSurroundIndex(dim, dim, boxPos, bombLocations) {
+    var i = Math.floor(boxPos / dim);
+    var j = boxPos % dim;
     var indexArray = [],
         index;
     var arrayI = [i, i, i, i + 1, i + 1, i + 1, i - 1, i - 1, i - 1];
     var arrayJ = [j, j - 1, j + 1, j - 1, j, j + 1, j - 1, j, j + 1];
     for (var k = 0; k < arrayI.length; k++) {
-        if (isValidPosition(row, col, arrayI[k], arrayJ[k])) {
-            index = arrayI[k] * col + arrayJ[k];
+        if (isValidPosition(dim, dim, arrayI[k], arrayJ[k])) {
+            index = arrayI[k] * dim + arrayJ[k];
             if ($.inArray(index, bombLocations) === -1) {
                 indexArray.push(index);
             }
@@ -131,8 +123,8 @@ function getCurrentSurroundIndex(row, col, boxPos, bombLocations) {
 
 
 
-function isValidPosition(row, col, i, j) {
-    if (i >= 0 && i < row && j >= 0 && j < row) {
+function isValidPosition(dim, dim, i, j) {
+    if (i >= 0 && i < dim && j >= 0 && j < dim) {
         return true;
     }
     return false;
@@ -148,4 +140,15 @@ function createMatrix(m, n, initial) {
         }
     }
     return array;
+}
+
+
+function generateBoxHtml(selector, dim) {
+    var boxHtmlCode = '<div class="box col-xs-' + (12 / dim) + '">' +
+        '<button class = "door" > </button>' +
+        '<div> </div> ' +
+        '</div>';
+    for (var i = 0; i < dim * dim; i++) {
+        selector.append(boxHtmlCode);
+    }
 }
