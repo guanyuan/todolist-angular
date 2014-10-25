@@ -9,11 +9,6 @@ $(function() {
     var bombLocations = generateBombLocation(row, col, count);
     console.log("Bombs located at: " + bombLocations + '(location begins from 0)');
 
-    $.each(bombLocations, function(k, v) {
-        var selector = '.box:nth-child(' + (v + 1) + ') div';
-        $(selector).addClass("bomb");
-    });
-
     mineDistr2 = getMineDistr(row, col, bombLocations);
     var index;
     for (var i = 0; i < row; i++) {
@@ -23,8 +18,12 @@ $(function() {
         }
     }
     $.each(mineDistr, function(k, v) {
-        if (v !== -1) {
-            $(".box:nth-child(" + (k + 1) + ") div").html(v);
+        var selector = '.box:nth-child(' + (k + 1) + ') div';
+        if($.inArray(k, bombLocations) !== -1) {
+            $(selector).addClass("bomb");
+        }
+        else {
+            $(selector).html(v);
         }
     });
 
