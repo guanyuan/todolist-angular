@@ -68,7 +68,6 @@ function generateBombLocation(row, col, count) {
 };
 
 
-
 function randomSort() {
     return 0.5 - Math.random();
 }
@@ -89,7 +88,7 @@ function getMineDistr(row, col, bombLocations) {
             surroundArray2[i][j] = -1;
         }
     }
-    //有雷的位置,bombArray2设为-1
+    //有雷的位置,bombArray2设为1
     for (var i = 0; i < bombLocations.length; i++) {
         m = Math.floor(bombLocations[i] / col);
         n = bombLocations[i] % col;
@@ -108,8 +107,8 @@ function getMineDistr(row, col, bombLocations) {
 
 function getCurrentSurroundBombNum(row, col, i, j, bombArray2) {
     var bombNum = 0;
-    var arrayI = [i, i, i + 1, i + 1, i + 1, i - 1, i - 1, i - 1];
-    var arrayJ = [j - 1, j + 1, j - 1, j, j + 1, j - 1, j, j + 1];
+    var arrayI = [i, i, i, i + 1, i + 1, i + 1, i - 1, i - 1, i - 1];
+    var arrayJ = [j, j - 1, j + 1, j - 1, j, j + 1, j - 1, j, j + 1];
     for (var k = 0; k < arrayI.length; k++) {
         if (isValidPosition(row, col, arrayI[k], arrayJ[k])) {
             bombNum += bombArray2[arrayI[k]][arrayJ[k]];
