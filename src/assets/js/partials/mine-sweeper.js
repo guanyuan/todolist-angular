@@ -1,17 +1,25 @@
 $(function() {
-    var row = 3;
-    var col = 3;
-    var count = 2;
+
+
+    var row = 4;
+    var col = 4;
+    var count = 3;
     var delay = 500;
-    var mineDistr = [],
-        mineDistr2;
+
+    var boxHtmlCode = '<div class="box col-xs-' + (12 / row) + '">' + 
+                        '<button class = "door" > </button>' +  
+                        '<div> </div> ' + 
+                    '</div>';
+    for (var i = 0; i < row * row; i++) {
+        $(".mine-layer").append(boxHtmlCode);
+    }
 
     var bombLocations = generateBombLocation(row, col, count);
+    var mineDistArray = getMineDistr(row, col, bombLocations);
     console.log("Bombs located at: " + bombLocations + '(location begins from 0)');
 
-    mineDistr = getMineDistr(row, col, bombLocations);
-
-    $.each(mineDistr, function(k, v) {
+    //布雷及生成格子周边雷数
+    $.each(mineDistArray, function(k, v) {
         var selector = '.box:nth-child(' + (k + 1) + ') div';
         if ($.inArray(k, bombLocations) !== -1) {
             $(selector).addClass("bomb");
@@ -69,53 +77,34 @@ function randomSort() {
 
 
 function getMineDistr(row, col, bombLocations) {
-    var m, n;
+    var m, n, index;
     //初始化为0
-    var bombArray2 = [],
-        mineDistr2 = [];
-    var mineDistr = [],
-        index;
+    var mine01Matrix = createMatrix(row, col, 0);
+    var mineDistArray = [];
 
-    for (var i = 0; i < row; i++) {
-        bombArray2[i] = [];
-        mineDistr2[i] = [];
-        for (var j = 0; j < col; j++) {
-            bombArray2[i][j] = 0;
-            mineDistr2[i][j] = -1;
-        }
-    }
-    //有雷的位置,bombArray2设为1
+    //有雷的位置,mine01Matrix设为1
     for (var i = 0; i < bombLocations.length; i++) {
         m = Math.floor(bombLocations[i] / col);
         n = bombLocations[i] % col;
-        bombArray2[m][n] = 1;
+        mine01Matrix[m][n] = 1;
     }
-
-    for (var i = 0; i < row; i++) {
-        for (var j = 0; j < col; j++) {
-            mineDistr2[i][j] = getCurrentSurroundBombNum(row, col, i, j, bombArray2);
-        }
-    }
-
-
-
     for (var i = 0; i < row; i++) {
         for (var j = 0; j < col; j++) {
             index = i * col + j;
-            mineDistr[index] = mineDistr2[i][j];
+            mineDistArray[index] = getCurrentSurroundBombNum(row, col, i, j, mine01Matrix);
         }
     }
-    return mineDistr;
+    return mineDistArray;
 }
 
 
-function getCurrentSurroundBombNum(row, col, i, j, bombArray2) {
+function getCurrentSurroundBombNum(row, col, i, j, mine01Matrix) {
     var bombNum = 0;
     var arrayI = [i, i, i, i + 1, i + 1, i + 1, i - 1, i - 1, i - 1];
     var arrayJ = [j, j - 1, j + 1, j - 1, j, j + 1, j - 1, j, j + 1];
     for (var k = 0; k < arrayI.length; k++) {
         if (isValidPosition(row, col, arrayI[k], arrayJ[k])) {
-            bombNum += bombArray2[arrayI[k]][arrayJ[k]];
+            bombNum += mine01Matrix[arrayI[k]][arrayJ[k]];
         }
     }
     return bombNum;
@@ -147,4 +136,16 @@ function isValidPosition(row, col, i, j) {
         return true;
     }
     return false;
+}
+
+
+function createMatrix(m, n, initial) {
+    var array = [];
+    for (var i = 0; i < m; i++) {
+        array[i] = [];
+        for (var j = 0; j < n; j++) {
+            array[i][j] = initial;
+        }
+    }
+    return array;
 }
