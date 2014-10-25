@@ -31,14 +31,22 @@ $(function() {
         var boxPos = $(".box").index($(this).parent());
         console.log("You clicked the " + boxPos + "th button");
         if ($.inArray(boxPos, bombLocations) != -1) {
-            $(".bomb").show();
-            $(".bomb").siblings().hide();
-
-            //refresh the current page
+            $(".box button").hide();
+            $(".box div").show();
             alert("Game over!");
-            location.reload();
+        } else {
+            var i = Math.floor(boxPos / col);
+            var j = boxPos % col;
+            var indexes = getCurrentSurroundIndex(row, col, i, j, bombLocations);
+            $.each(indexes, function(k, v) {
+                $(".box:nth-child(" + (v + 1) + ") button").hide();
+                $(".box:nth-child(" + (v + 1) + ") div").show();
+            });
+            if($(".box div:hidden").parent().size() === count) {
+                alert("You win");
+            }
+        }
 
-        } else {}
     });
 });
 
@@ -82,11 +90,11 @@ function getMineDistr(row, col, bombLocations) {
         bombArray2[m][n] = 1;
     }
 
-for(var i=0; i<row; i++) {
-    for(var j=0; j< col; j++) {
-        surroundArray2[i][j] = getCurrentSurroundBombNum(row, col, i, j, bombArray2);
+    for (var i = 0; i < row; i++) {
+        for (var j = 0; j < col; j++) {
+            surroundArray2[i][j] = getCurrentSurroundBombNum(row, col, i, j, bombArray2);
+        }
     }
-}
 
     return surroundArray2;
 }
@@ -94,51 +102,38 @@ for(var i=0; i<row; i++) {
 
 function getCurrentSurroundBombNum(row, col, i, j, bombArray2) {
     var bombNum = 0;
-    var arrayI = [i, i, i+1, i+1, i+1, i-1, i-1, i-1];
-    var arrayJ = [j-1, j+1, j-1, j, j+1, j-1, j, j+1];
-    for(var k=0; k<arrayI.length; k++) {
-        if(isValidPosition(row, col, arrayI[k], arrayJ[k])) {
+    var arrayI = [i, i, i + 1, i + 1, i + 1, i - 1, i - 1, i - 1];
+    var arrayJ = [j - 1, j + 1, j - 1, j, j + 1, j - 1, j, j + 1];
+    for (var k = 0; k < arrayI.length; k++) {
+        if (isValidPosition(row, col, arrayI[k], arrayJ[k])) {
             bombNum += bombArray2[arrayI[k]][arrayJ[k]];
         }
     }
     return bombNum;
 }
 
-function getCurrentSurroundIndex(row, col, i, j) {
-    var indexArray = [], index;
-    var arrayI = [i, i, i+1, i+1, i+1, i-1, i-1, i-1];
-    var arrayJ = [j-1, j+1, j-1, j, j+1, j-1, j, j+1];
-    for(var k=0; k<arrayI.length; k++) {
-        if(isValidPosition(row, col, arrayI[k], arrayJ[k])) {
+function getCurrentSurroundIndex(row, col, i, j, bombLocations) {
+    var indexArray = [],
+        index;
+    var arrayI = [i, i, i, i + 1, i + 1, i + 1, i - 1, i - 1, i - 1];
+    var arrayJ = [j, j - 1, j + 1, j - 1, j, j + 1, j - 1, j, j + 1];
+    for (var k = 0; k < arrayI.length; k++) {
+        if (isValidPosition(row, col, arrayI[k], arrayJ[k])) {
             index = arrayI[k] * col + arrayJ[k];
-            indexArray.push(index);
+            if ($.inArray(index, bombLocations) === -1) {
+                indexArray.push(index);
+            }
         }
     }
     return indexArray;
 }
 
 
+
+
 function isValidPosition(row, col, i, j) {
-    if(i>=0 && i<row && j>=0 && j<row) {
+    if (i >= 0 && i < row && j >= 0 && j < row) {
         return true;
     }
     return false;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
