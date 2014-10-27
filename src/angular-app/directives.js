@@ -6,11 +6,15 @@ blogApp.directive('draggableVertical', function() {
     var linkFn;
     linkFn = function(scope, element, attrs) {
         var items = $(element).children();
-        $(items).draggable({axis: "y", containment: ".drag-up-down", scroll: false});
+        $(items).draggable({
+            axis: "y",
+            containment: ".drag-up-down",
+            scroll: false
+        });
     };
     return {
-    	restrict: 'A',
-    	link: linkFn
+        restrict: 'A',
+        link: linkFn
     };
 });
 
@@ -31,7 +35,11 @@ blogApp.directive('draggableHorizon', function() {
     var linkFn;
     linkFn = function(scope, element, attrs) {
         var boxes = angular.element(element.children());
-        $(boxes).draggable({axis: "x", containment: ".drag-left-right", scroll: false});
+        $(boxes).draggable({
+            axis: "x",
+            containment: ".drag-left-right",
+            scroll: false
+        });
     };
     return {
         restrict: 'E',
@@ -43,7 +51,7 @@ blogApp.directive('draggableHorizon', function() {
 blogApp.directive('mineGame', function() {
     var linkFn;
     linkFn = function(scope, element, attrs) {
-                var dim = 6;
+        var dim = 6;
         var count = 10;
         var delay = 500;
 
@@ -67,7 +75,10 @@ blogApp.directive('mineGame', function() {
 
         $("body").on("click", '.box button', function() {
             var axis = $(this).parent().attr("axis").split('-');
-            axis = {"x": parseInt(axis[0]), "y": parseInt(axis[1])};
+            axis = {
+                "x": parseInt(axis[0]),
+                "y": parseInt(axis[1])
+            };
 
             if ($(this).next().hasClass("icon-bomb")) {
                 $(".box button").hide();
@@ -75,8 +86,7 @@ blogApp.directive('mineGame', function() {
                 setTimeout(function() {
                     alert("Do not be sad, you can do better next time.");
                 }, delay);
-            } 
-            else {
+            } else {
                 var indexes = getCurrentSurroundIndex(dim, axis, bombLocations);
                 $.each(indexes, function(k, v) {
                     $(".box:nth-child(" + (v + 1) + ") button").hide();
@@ -90,7 +100,7 @@ blogApp.directive('mineGame', function() {
                 }
             }
         });
-        
+
     };
     return {
         restrict: 'C',

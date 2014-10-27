@@ -106,8 +106,8 @@
         };
         var width = $(selector.children().eq(0)).width();
         selector.children().css({
-            "height": width+"px",
-            "font-size": (width / 2)+"px",
-            "line-height": width+"px"
+            "height": width + "px",
+            "font-size": (width / 2) + "px",
+            "line-height": width + "px"
         });
     }
