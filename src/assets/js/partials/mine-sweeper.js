@@ -6,7 +6,7 @@
         var delay = 500;
 
 
-        generateBoxHtml($(".mine-layer"), dim);
+        generateBoxHtml(".mine-layer", dim);
         var bombLocations = generateBombLocation(dim, count);
         var mineDistArray = getMineDistr(dim, bombLocations);
         console.log("Bombs located at: " + bombLocations + '(location begins from 0)');
@@ -25,6 +25,7 @@
 
         $("body").on("click", '.box button', function() {
             var boxPos = $(".box").index($(this).parent());
+            var axis = $(this).parent().attr("axis").split('-');
             console.log("You clicked the " + boxPos + "th button");
             if ($.inArray(boxPos, bombLocations) != -1) {
                 $(".box button").hide();
@@ -152,15 +153,17 @@
             '<button class = "door" > </button>' +
             '<div> </div> ' +
             '</div>';
-        for (var i = 0; i < dim * dim; i++) {
-            selector.append(boxHtmlCode);
-        }
-        var width = selector.children().width();
-        selector.children().css({
+
+        for (var i = 0; i < dim; i++) {
+            for (var j = 0; j < dim; j++) {
+                $(selector).append(boxHtmlCode);
+                $(selector + " .box").last().attr("axis", i + "-" + j);
+            };
+        };
+        var width = $(selector).children().width();
+        $(selector).children().css({
             "height": width,
-            "font-size": (width / 2)
-        });
-        selector.children().css({
+            "font-size": (width / 2),
             "line-height": width + "px"
         });
     }
