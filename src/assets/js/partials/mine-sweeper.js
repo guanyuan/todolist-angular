@@ -1,170 +1,171 @@
-;(function($){
+;
+(function($) {
     $(function() {
-    var dim = 6;
-    var count = 10;
-    var delay = 500;
+        var dim = 6;
+        var count = 10;
+        var delay = 500;
 
 
-    generateBoxHtml($(".mine-layer"), dim);
-    var bombLocations = generateBombLocation(dim, count);
-    var mineDistArray = getMineDistr(dim, bombLocations);
-    console.log("Bombs located at: " + bombLocations + '(location begins from 0)');
+        generateBoxHtml($(".mine-layer"), dim);
+        var bombLocations = generateBombLocation(dim, count);
+        var mineDistArray = getMineDistr(dim, bombLocations);
+        console.log("Bombs located at: " + bombLocations + '(location begins from 0)');
 
-    //布雷及生成格子周边雷数
-    $.each(mineDistArray, function(k, v) {
-        var selector = '.box:nth-child(' + (k + 1) + ') div';
-        if ($.inArray(k, bombLocations) !== -1) {
-            $(selector).addClass("icon-bomb");
-        } else {
-            if (v !== 0) {
-                $(selector).html(v);
+        //布雷及生成格子周边雷数
+        $.each(mineDistArray, function(k, v) {
+            var selector = '.box:nth-child(' + (k + 1) + ') div';
+            if ($.inArray(k, bombLocations) !== -1) {
+                $(selector).addClass("icon-bomb");
+            } else {
+                if (v !== 0) {
+                    $(selector).html(v);
+                }
             }
-        }
-    });
+        });
 
-    $("body").on("click", '.box button', function() {
-        var boxPos = $(".box").index($(this).parent());
-        console.log("You clicked the " + boxPos + "th button");
-        if ($.inArray(boxPos, bombLocations) != -1) {
-            $(".box button").hide();
-            $(".box div").show();
-            setTimeout(function() {
-                alert("Do not be sad, you can do better next time.");
-            }, delay);
-        } else {
-
-            var indexes = getCurrentSurroundIndex(dim, boxPos, bombLocations);
-            $.each(indexes, function(k, v) {
-                $(".box:nth-child(" + (v + 1) + ") button").hide();
-                $(".box:nth-child(" + (v + 1) + ") div").show();
-            });
-            if ($(".box div:hidden").parent().size() === count) {
+        $("body").on("click", '.box button', function() {
+            var boxPos = $(".box").index($(this).parent());
+            console.log("You clicked the " + boxPos + "th button");
+            if ($.inArray(boxPos, bombLocations) != -1) {
+                $(".box button").hide();
+                $(".box div").show();
                 setTimeout(function() {
-                    alert("Congratulations, you win!");
+                    alert("Do not be sad, you can do better next time.");
                 }, delay);
+            } else {
 
+                var indexes = getCurrentSurroundIndex(dim, boxPos, bombLocations);
+                $.each(indexes, function(k, v) {
+                    $(".box:nth-child(" + (v + 1) + ") button").hide();
+                    $(".box:nth-child(" + (v + 1) + ") div").show();
+                });
+                if ($(".box div:hidden").parent().size() === count) {
+                    setTimeout(function() {
+                        alert("Congratulations, you win!");
+                    }, delay);
+
+                }
+            }
+
+        });
+    });
+
+
+    //洗牌后选择前count个元素，随机选择布雷位置
+    function generateBombLocation(dim, count) {
+        var array = [];
+        for (var i = 0; i < dim * dim; i++) {
+            array[i] = i;
+        }
+        array.sort(randomSort);
+        return array.slice(0, count);
+    };
+
+    //排序函数
+    function randomSort() {
+        return 0.5 - Math.random();
+    }
+
+
+
+    //得到一个二维矩阵，雷数分布
+    function getMineDistr(dim, bombLocations) {
+        var m, n, index;
+        //初始化为0
+        var mine01Matrix = createMatrix(dim, dim, 0);
+        var mineDistArray = [];
+
+        //有雷的位置,mine01Matrix设为1
+
+        for (var i = 0; i < bombLocations.length; i++) {
+            m = Math.floor(bombLocations[i] / dim);
+            n = bombLocations[i] % dim;
+            mine01Matrix[m][n] = 1;
+        }
+        for (var i = 0; i < dim; i++) {
+            for (var j = 0; j < dim; j++) {
+                index = i * dim + j;
+                mineDistArray[index] = getCurrentSurroundBombNum(dim, i, j, mine01Matrix);
             }
         }
-
-    });
-});
-
-
-//洗牌后选择前count个元素，随机选择布雷位置
-function generateBombLocation(dim, count) {
-    var array = [];
-    for (var i = 0; i < dim * dim; i++) {
-        array[i] = i;
+        return mineDistArray;
     }
-    array.sort(randomSort);
-    return array.slice(0, count);
-};
-
-//排序函数
-function randomSort() {
-    return 0.5 - Math.random();
-}
 
 
-
-//得到一个二维矩阵，雷数分布
-function getMineDistr(dim, bombLocations) {
-    var m, n, index;
-    //初始化为0
-    var mine01Matrix = createMatrix(dim, dim, 0);
-    var mineDistArray = [];
-
-    //有雷的位置,mine01Matrix设为1
-
-    for (var i = 0; i < bombLocations.length; i++) {
-        m = Math.floor(bombLocations[i] / dim);
-        n = bombLocations[i] % dim;
-        mine01Matrix[m][n] = 1;
-    }
-    for (var i = 0; i < dim; i++) {
-        for (var j = 0; j < dim; j++) {
-            index = i * dim + j;
-            mineDistArray[index] = getCurrentSurroundBombNum(dim, i, j, mine01Matrix);
-        }
-    }
-    return mineDistArray;
-}
-
-
-//得到每个格子周边的雷数
-function getCurrentSurroundBombNum(dim, i, j, mine01Matrix) {
-    var bombNum = 0;
-    var arrayI = [i, i, i, i + 1, i + 1, i + 1, i - 1, i - 1, i - 1];
-    var arrayJ = [j, j - 1, j + 1, j - 1, j, j + 1, j - 1, j, j + 1];
-    for (var k = 0; k < arrayI.length; k++) {
-        if (isValidPosition(dim, dim, arrayI[k], arrayJ[k])) {
-            bombNum += mine01Matrix[arrayI[k]][arrayJ[k]];
-        }
-    }
-    return bombNum;
-}
-
-
-//得到当前格子周边要显示的格子坐标
-function getCurrentSurroundIndex(dim, boxPos, bombLocations) {
-    var i = Math.floor(boxPos / dim);
-    var j = boxPos % dim;
-    var indexArray = [],
-        index;
-    var arrayI = [i, i, i, i + 1, i + 1, i + 1, i - 1, i - 1, i - 1];
-    var arrayJ = [j, j - 1, j + 1, j - 1, j, j + 1, j - 1, j, j + 1];
-    for (var k = 0; k < arrayI.length; k++) {
-        if (isValidPosition(dim, dim, arrayI[k], arrayJ[k])) {
-            index = arrayI[k] * dim + arrayJ[k];
-            if ($.inArray(index, bombLocations) === -1) {
-                indexArray.push(index);
+    //得到每个格子周边的雷数
+    function getCurrentSurroundBombNum(dim, i, j, mine01Matrix) {
+        var bombNum = 0;
+        var arrayI = [i, i, i, i + 1, i + 1, i + 1, i - 1, i - 1, i - 1];
+        var arrayJ = [j, j - 1, j + 1, j - 1, j, j + 1, j - 1, j, j + 1];
+        for (var k = 0; k < arrayI.length; k++) {
+            if (isValidPosition(dim, dim, arrayI[k], arrayJ[k])) {
+                bombNum += mine01Matrix[arrayI[k]][arrayJ[k]];
             }
         }
+        return bombNum;
     }
-    return indexArray;
-}
 
 
-
-//判断格子的坐标是否合法
-function isValidPosition(dim, dim, i, j) {
-    if (i >= 0 && i < dim && j >= 0 && j < dim) {
-        return true;
-    }
-    return false;
-}
-
-
-//创建m*n的二维矩阵，初始值为initial
-function createMatrix(m, n, initial) {
-    var array = [];
-    for (var i = 0; i < m; i++) {
-        array[i] = [];
-        for (var j = 0; j < n; j++) {
-            array[i][j] = initial;
+    //得到当前格子周边要显示的格子坐标
+    function getCurrentSurroundIndex(dim, boxPos, bombLocations) {
+        var i = Math.floor(boxPos / dim);
+        var j = boxPos % dim;
+        var indexArray = [],
+            index;
+        var arrayI = [i, i, i, i + 1, i + 1, i + 1, i - 1, i - 1, i - 1];
+        var arrayJ = [j, j - 1, j + 1, j - 1, j, j + 1, j - 1, j, j + 1];
+        for (var k = 0; k < arrayI.length; k++) {
+            if (isValidPosition(dim, dim, arrayI[k], arrayJ[k])) {
+                index = arrayI[k] * dim + arrayJ[k];
+                if ($.inArray(index, bombLocations) === -1) {
+                    indexArray.push(index);
+                }
+            }
         }
+        return indexArray;
     }
-    return array;
-}
 
 
-//生成格子结构
-function generateBoxHtml(selector, dim) {
-    var boxHtmlCode = '<div class="box col-xs-' + (12 / dim) + '">' +
-        '<button class = "door" > </button>' +
-        '<div> </div> ' +
-        '</div>';
-    for (var i = 0; i < dim * dim; i++) {
-        selector.append(boxHtmlCode);
+
+    //判断格子的坐标是否合法
+    function isValidPosition(dim, dim, i, j) {
+        if (i >= 0 && i < dim && j >= 0 && j < dim) {
+            return true;
+        }
+        return false;
     }
-    var width = selector.children().width();
-    selector.children().css({
-        "height": width,
-        "font-size": (width / 2)
-    });
-    selector.children().css({
-        "line-height": width + "px"
-    });
-}
+
+
+    //创建m*n的二维矩阵，初始值为initial
+    function createMatrix(m, n, initial) {
+        var array = [];
+        for (var i = 0; i < m; i++) {
+            array[i] = [];
+            for (var j = 0; j < n; j++) {
+                array[i][j] = initial;
+            }
+        }
+        return array;
+    }
+
+
+    //生成格子结构
+    function generateBoxHtml(selector, dim) {
+        var boxHtmlCode = '<div class="box col-xs-' + (12 / dim) + '">' +
+            '<button class = "door" > </button>' +
+            '<div> </div> ' +
+            '</div>';
+        for (var i = 0; i < dim * dim; i++) {
+            selector.append(boxHtmlCode);
+        }
+        var width = selector.children().width();
+        selector.children().css({
+            "height": width,
+            "font-size": (width / 2)
+        });
+        selector.children().css({
+            "line-height": width + "px"
+        });
+    }
 
 })(window.jQuery);
