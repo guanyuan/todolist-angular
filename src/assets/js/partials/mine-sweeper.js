@@ -151,7 +151,12 @@ function generateBoxHtml(selector, dim) {
     for (var i = 0; i < dim * dim; i++) {
         selector.append(boxHtmlCode);
     }
-     var width = selector.children().width();
-     selector.children().css({"height": width, "font-size":(width/2)});
-    selector.children().css({"line-height": width+"px"});
+    var width = selector.children().width();
+    selector.children().css({
+        "height": width,
+        "font-size": (width / 2)
+    });
+    selector.children().css({
+        "line-height": width + "px"
+    });
 }
