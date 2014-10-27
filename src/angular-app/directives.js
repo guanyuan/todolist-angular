@@ -58,8 +58,9 @@ blogApp.directive('mineGame', function() {
 
         generateBoxHtml(element, dim);
 
-        var width = $(element.children().eq(0)).width();
+        var width = $(element).width()/dim;
         element.children().css({
+            "width": width + "px",
             "height": width + "px",
             "font-size": (width / 2) + "px",
             "line-height": width + "px"
