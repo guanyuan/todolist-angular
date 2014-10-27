@@ -1,4 +1,5 @@
-$(function() {
+;(function($){
+    $(function() {
     var dim = 6;
     var count = 10;
     var delay = 500;
@@ -165,3 +166,5 @@ function generateBoxHtml(selector, dim) {
         "line-height": width + "px"
     });
 }
+
+})(window.jQuery);
