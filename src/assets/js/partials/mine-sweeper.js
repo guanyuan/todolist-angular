@@ -24,18 +24,18 @@
         });
 
         $("body").on("click", '.box button', function() {
-            var boxPos = $(".box").index($(this).parent());
             var axis = $(this).parent().attr("axis").split('-');
-            console.log("You clicked the " + boxPos + "th button");
-            if ($.inArray(boxPos, bombLocations) != -1) {
+            axis = {"x": parseInt(axis[0]), "y": parseInt(axis[1])};
+
+            if ($(this).next().hasClass("icon-bomb")) {
                 $(".box button").hide();
                 $(".box div").show();
                 setTimeout(function() {
                     alert("Do not be sad, you can do better next time.");
                 }, delay);
-            } else {
-
-                var indexes = getCurrentSurroundIndex(dim, boxPos, bombLocations);
+            } 
+            else {
+                var indexes = getCurrentSurroundIndex(dim, axis, bombLocations);
                 $.each(indexes, function(k, v) {
                     $(".box:nth-child(" + (v + 1) + ") button").hide();
                     $(".box:nth-child(" + (v + 1) + ") div").show();
@@ -106,11 +106,9 @@
         return bombNum;
     }
 
-
-    //得到当前格子周边要显示的格子坐标
     function getCurrentSurroundIndex(dim, boxPos, bombLocations) {
-        var i = Math.floor(boxPos / dim);
-        var j = boxPos % dim;
+        var i = boxPos.x;
+        var j = boxPos.y;
         var indexArray = [],
             index;
         var arrayI = [i, i, i, i + 1, i + 1, i + 1, i - 1, i - 1, i - 1];
