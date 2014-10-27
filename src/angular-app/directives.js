@@ -57,6 +57,13 @@ blogApp.directive('mineGame', function() {
         var count = parseInt(args[1]);
 
         generateBoxHtml(element, dim);
+
+        var width = $(element.children().eq(0)).width();
+    element.children().css({
+        "height": width + "px",
+        "font-size": (width / 2) + "px",
+        "line-height": width + "px"
+    });
         var bombLocations = generateBombLocation(dim, count);
         var mineDistArray = getMineDistr(dim, bombLocations);
         console.log("Bombs located at: " + bombLocations + '(location begins from 0)');

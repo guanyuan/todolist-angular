@@ -101,10 +101,4 @@ function generateBoxHtml(selector, dim) {
             $('.' + selector.attr("class").split(' ')[0] + ' .box').last().attr("axis", i + "-" + j);
         };
     };
-    var width = $(selector.children().eq(0)).width();
-    selector.children().css({
-        "height": width + "px",
-        "font-size": (width / 2) + "px",
-        "line-height": width + "px"
-    });
 }
