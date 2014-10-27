@@ -8,12 +8,12 @@
     .mine-game {
         .box {
             float: left;
-            width: 25%;
             position: relative;
             min-height: 1px;
             box-sizing: border-box;
             cursor: pointer;
             border: 1px solid grey;
+            
             button, div {
                 display: inline-block;
                 width: 100%;

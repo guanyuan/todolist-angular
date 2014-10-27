@@ -90,7 +90,7 @@ function createMatrix(m, n, initial) {
 
 //生成格子结构
 function generateBoxHtml(selector, dim) {
-    var boxHtmlCode = '<div class="box col-xs-' + (12 / dim) + '">' +
+    var boxHtmlCode = '<div class="box">' +
         '<button class = "door" > </button>' +
         '<div> </div> ' +
         '</div>';
