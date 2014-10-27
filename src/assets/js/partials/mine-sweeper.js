@@ -1,7 +1,7 @@
 $(function() {
 
-    var dim = 4;
-    var count = 3;
+    var dim = 6;
+    var count = 10;
     var delay = 500;
 
 
@@ -14,7 +14,7 @@ $(function() {
     $.each(mineDistArray, function(k, v) {
         var selector = '.box:nth-child(' + (k + 1) + ') div';
         if ($.inArray(k, bombLocations) !== -1) {
-            $(selector).addClass("bomb");
+            $(selector).addClass("icon-bomb");
         } else {
             if (v !== 0) {
                 $(selector).html(v);
@@ -142,7 +142,7 @@ function createMatrix(m, n, initial) {
     return array;
 }
 
-
+//生成格子结构
 function generateBoxHtml(selector, dim) {
     var boxHtmlCode = '<div class="box col-xs-' + (12 / dim) + '">' +
         '<button class = "door" > </button>' +
@@ -151,4 +151,7 @@ function generateBoxHtml(selector, dim) {
     for (var i = 0; i < dim * dim; i++) {
         selector.append(boxHtmlCode);
     }
+     var width = selector.children().width();
+     selector.children().css({"height": width, "font-size":(width/2)});
+    selector.children().css({"line-height": width+"px"});
 }

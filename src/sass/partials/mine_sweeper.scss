@@ -9,7 +9,6 @@
     .mine-layer {
         .box {
         	padding: 0px;
-            height: 167px;
             cursor: pointer;
             border: 1px solid grey;
             button, div {
@@ -19,19 +18,8 @@
             }
             div {
                 text-align: center;
-                font-size: 30px;
-                line-height: 167px;
             	display: none;
-            }
-            button {
-            	// display: none;
             }
         }
     }
-}
-
-.bomb {
-    background-image: url("/assets/img/icons/bomb.png");
-    background-repeat: no-repeat;
-    background-position: 15px 30px;
 }
