@@ -1,3 +1,4 @@
+   ;$(function() {
     //洗牌后选择前count个元素，随机选择布雷位置
     function generateBombLocation(dim, count) {
         var array = [];
@@ -111,3 +112,4 @@
             "line-height": width + "px"
         });
     }
+})(window.jQuery);
