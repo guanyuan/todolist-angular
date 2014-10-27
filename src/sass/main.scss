@@ -41,17 +41,11 @@ body {
     height: 100%;
     background-color: ghostwhite;
 }
-
-
-@import "../font/fontello/css/fontello.css";
-
-@import "../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap.scss";
+@import"../font/fontello/css/fontello.css";
 //blog
-@import "partials/blog.scss";
-
+@import"partials/blog.scss";
 //todolist
-@import "partials/todolist.scss";
-
+@import"partials/todolist.scss";
 //exercise
-@import "partials/exercise.scss";
-@import "partials/mine_sweeper.scss";
+@import"partials/exercise.scss";
+@import"partials/mine_sweeper.scss";
