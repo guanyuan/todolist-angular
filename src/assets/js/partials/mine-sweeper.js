@@ -129,10 +129,7 @@
 
     //判断格子的坐标是否合法
     function isValidPosition(dim, dim, i, j) {
-        if (i >= 0 && i < dim && j >= 0 && j < dim) {
-            return true;
-        }
-        return false;
+        return (i >= 0 && i < dim && j >= 0 && j < dim);
     }
 
 
