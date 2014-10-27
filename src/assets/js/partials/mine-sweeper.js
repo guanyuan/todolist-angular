@@ -1,5 +1,4 @@
-   ;
-   $(function() {
+
        //洗牌后选择前count个元素，随机选择布雷位置
        function generateBombLocation(dim, count) {
            var array = [];
@@ -14,8 +13,6 @@
        function randomSort() {
            return 0.5 - Math.random();
        }
-
-
 
        //得到一个二维矩阵，雷数分布
        function getMineDistr(dim, bombLocations) {
@@ -113,4 +110,4 @@
                "line-height": width + "px"
            });
        }
-   })(window.jQuery);
+

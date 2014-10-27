@@ -49,12 +49,12 @@ blogApp.directive('draggableHorizon', function() {
 
 /////////////////////////////////////////////////////////////////////////////////////
 blogApp.directive('mineGame', function() {
+
     var linkFn;
     linkFn = function(scope, element, attrs) {
-        var dim = 6;
-        var count = 10;
-        var delay = 500;
-
+        var args = element.attr("args").split('-');
+        var dim = parseInt(args[0]);
+        var count = parseInt(args[1]);
 
         generateBoxHtml(element, dim);
         var bombLocations = generateBombLocation(dim, count);
@@ -79,7 +79,7 @@ blogApp.directive('mineGame', function() {
                 "x": parseInt(axis[0]),
                 "y": parseInt(axis[1])
             };
-
+            var delay = 500;
             if ($(this).next().hasClass("icon-bomb")) {
                 $(".box button").hide();
                 $(".box div").show();
